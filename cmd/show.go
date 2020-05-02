@@ -8,9 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type ListTil api.Til
+type ShowTil api.Til
 
-func (t ListTil) String() string {
+func (t ShowTil) String() string {
 	prefixedTags := make([]string, len(t.TagNames))
 
 	for i, tagName := range t.TagNames {
@@ -18,36 +18,34 @@ func (t ListTil) String() string {
 	}
 
 	return fmt.Sprintf(
-		"%s  %s  %s  %s  %s",
-		t.UUID,
-		t.CreatedAt.Format("02 Jan 2006"),
-		t.Visibility.String()[0:3],
+		"\n%s\n\n%s  %s  %s\n\n\n%s\n",
 		t.Title,
+		t.CreatedAt.Format("Mon, 02 Jan 2006"),
+		t.Visibility,
 		strings.Join(prefixedTags, " "),
+		t.Content,
 	)
 }
 
-var listCmd = &cobra.Command{
-	Use:  "list",
-	Args: cobra.NoArgs,
+var showCmd = &cobra.Command{
+	Use:  "show",
+	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return list()
+		return show(args[0])
 	},
 }
 
-func list() error {
-	tils, err := api.FetchTils()
+func show(uuid string) error {
+	til, err := api.FetchTil(uuid)
 	if err != nil {
 		return err
 	}
 
-	for _, til := range tils {
-		fmt.Println(ListTil(til))
-	}
+	fmt.Println(ShowTil(*til))
 
 	return nil
 }
 
 func init() {
-	rootCmd.AddCommand(listCmd)
+	rootCmd.AddCommand(showCmd)
 }

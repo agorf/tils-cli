@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -26,23 +25,6 @@ type Til struct {
 	UpdatedAt  time.Time  `json:"updated_at"`
 	Archived   bool       `json:"archived"`
 	TagNames   []string   `json:"tag_names"`
-}
-
-func (t Til) String() string {
-	prefixedTags := make([]string, len(t.TagNames))
-
-	for i, tagName := range t.TagNames {
-		prefixedTags[i] = "#" + tagName
-	}
-
-	return fmt.Sprintf(
-		"%s  %s  %s  %s  %s",
-		t.UUID,
-		t.CreatedAt.Format("02 Jan 2006"),
-		t.Visibility.String()[0:3],
-		t.Title,
-		strings.Join(prefixedTags, " "),
-	)
 }
 
 func (v Visibility) String() string {
@@ -93,4 +75,31 @@ func FetchTils() ([]Til, error) {
 	}
 
 	return tils, nil
+}
+
+func FetchTil(uuid string) (*Til, error) {
+	req, err := NewRequest("GET", fmt.Sprintf("/tils/%s", uuid), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, errors.New(resp.Status)
+	}
+
+	var til Til
+
+	err = json.NewDecoder(resp.Body).Decode(&til)
+	if err != nil {
+		return nil, err
+	}
+
+	return &til, nil
 }
