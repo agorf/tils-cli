@@ -29,6 +29,19 @@ func (v Visibility) String() string {
 	return [...]string{"public", "unlisted", "private"}[v]
 }
 
+func VisibilityString(s string) (Visibility, error) {
+	switch s {
+	case "public":
+		return Public, nil
+	case "unlisted":
+		return Unlisted, nil
+	case "private":
+		return Private, nil
+	default:
+		return Public, fmt.Errorf("invalid visibility string %v", s)
+	}
+}
+
 func (v *Visibility) UnmarshalJSON(b []byte) error {
 	var s string
 
@@ -36,14 +49,12 @@ func (v *Visibility) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	switch s {
-	case "public":
-		*v = Public
-	case "unlisted":
-		*v = Unlisted
-	case "private":
-		*v = Private
+	visibility, err := VisibilityString(s)
+	if err != nil {
+		return err
 	}
+
+	*v = visibility
 
 	return nil
 }
