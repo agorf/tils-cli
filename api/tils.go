@@ -2,9 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"net/http"
 	"time"
 )
 
@@ -51,25 +49,9 @@ func (v *Visibility) UnmarshalJSON(b []byte) error {
 }
 
 func FetchTils() ([]Til, error) {
-	req, err := NewRequest("GET", "/tils", nil)
-	if err != nil {
-		return nil, err
-	}
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
-	}
-
 	var tils []Til
 
-	err = json.NewDecoder(resp.Body).Decode(&tils)
+	err := Get("/tils", &tils)
 	if err != nil {
 		return nil, err
 	}
@@ -78,25 +60,9 @@ func FetchTils() ([]Til, error) {
 }
 
 func FetchTil(uuid string) (*Til, error) {
-	req, err := NewRequest("GET", fmt.Sprintf("/tils/%s", uuid), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != 200 {
-		return nil, errors.New(resp.Status)
-	}
-
 	var til Til
 
-	err = json.NewDecoder(resp.Body).Decode(&til)
+	err := Get(fmt.Sprintf("/tils/%s", uuid), &til)
 	if err != nil {
 		return nil, err
 	}
