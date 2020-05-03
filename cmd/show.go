@@ -18,12 +18,14 @@ func (t ShowTil) String() string {
 	}
 
 	return fmt.Sprintf(
-		"\n%s\n\n%s  %s  %s\n\n\n%s\n",
+		"%s\n%s\n%s\n\n%s\n\n%s  %s  %s",
+		strings.Repeat("=", len(t.Title)),
 		t.Title,
+		strings.Repeat("=", len(t.Title)),
+		t.Content,
 		t.CreatedAt.Format("Mon, 02 Jan 2006"),
 		t.Visibility,
 		strings.Join(prefixedTags, " "),
-		t.Content,
 	)
 }
 
