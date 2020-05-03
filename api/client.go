@@ -17,7 +17,7 @@ var (
 )
 
 func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest("GET", baseURL+path, nil)
+	req, err := http.NewRequest(method, baseURL+path, body)
 	if err != nil {
 		return nil, err
 	}
