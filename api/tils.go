@@ -26,7 +26,7 @@ type Til struct {
 }
 
 func (v Visibility) String() string {
-	return [...]string{"Public", "Unlisted", "Private"}[v]
+	return [...]string{"public", "unlisted", "private"}[v]
 }
 
 func (v *Visibility) UnmarshalJSON(b []byte) error {
