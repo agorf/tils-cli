@@ -21,6 +21,19 @@ archived: {{.Archived}}
 {{.Content}}
 `
 
+const tilTemplateRegex = `---\n` +
+	`tags\s*:\s*(?P<tags>[ a-z0-9_]+)*\s*\n` +
+	`visibility\s*:\s*(?P<visibility>public|unlisted|private)\s*\n` +
+	`archived\s*:\s*(?P<archived>true|false)\s*\n` + `---\n` +
+	`\n` +
+	`#\s*(?P<title>.+)\n` +
+	`\n` +
+	`(?P<content>.*)`
+
+var (
+	re *regexp.Regexp
+)
+
 func MarshalTil(til *api.Til) ([]byte, error) {
 	templ, err := template.New("til").Parse(tilTemplate)
 	if err != nil {
@@ -35,18 +48,6 @@ func MarshalTil(til *api.Til) ([]byte, error) {
 
 func UnmarshalTil(data []byte) (*api.Til, error) {
 	var til api.Til
-
-	re := regexp.MustCompile(
-		`---\n` +
-			`tags\s*:\s*(?P<tags>[ a-z0-9_]+)*\s*\n` +
-			`visibility\s*:\s*(?P<visibility>public|unlisted|private)\s*\n` +
-			`archived\s*:\s*(?P<archived>true|false)\s*\n` +
-			`---\n` +
-			`\n` +
-			`#\s*(?P<title>.+)\n` +
-			`\n` +
-			`(?P<content>.*)`,
-	)
 
 	match := re.FindStringSubmatch(string(data))
 
@@ -79,4 +80,8 @@ func UnmarshalTil(data []byte) (*api.Til, error) {
 	}
 
 	return &til, nil
+}
+
+func init() {
+	re = regexp.MustCompile(tilTemplateRegex)
 }
