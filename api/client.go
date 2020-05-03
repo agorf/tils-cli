@@ -6,10 +6,10 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"os"
 )
 
 const (
-	baseURL   = "https://tils.dev/api"
 	userAgent = "https://github.com/agorf/tilboard-cli"
 )
 
@@ -18,7 +18,8 @@ var (
 )
 
 func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, baseURL+path, body)
+	baseUrl := os.Getenv("TILBOARD_API_BASE_URL")
+	req, err := http.NewRequest(method, baseUrl+path, body)
 	if err != nil {
 		return nil, err
 	}
