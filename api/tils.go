@@ -42,6 +42,14 @@ func VisibilityString(s string) (Visibility, error) {
 	}
 }
 
+func (v Visibility) MarshalJSON() ([]byte, error) {
+	b, err := json.Marshal(v.String())
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func (v *Visibility) UnmarshalJSON(b []byte) error {
 	var s string
 
@@ -79,4 +87,13 @@ func FetchTil(uuid string) (*Til, error) {
 	}
 
 	return &til, nil
+}
+
+func UpdateTil(uuid string, til *Til) error {
+	err := Put(fmt.Sprintf("/tils/%s", uuid), til)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
