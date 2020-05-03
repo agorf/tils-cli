@@ -87,3 +87,35 @@ func Put(path string, til *Til) error {
 
 	return nil
 }
+
+func Post(path string, til *Til) error {
+	var body bytes.Buffer
+
+	err := json.NewEncoder(&body).Encode(map[string]Til{"til": *til})
+	if err != nil {
+		return err
+	}
+
+	req, err := NewRequest("POST", path, &body)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return errors.New(resp.Status)
+	}
+
+	err = json.NewDecoder(resp.Body).Decode(til)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

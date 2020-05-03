@@ -97,3 +97,12 @@ func UpdateTil(uuid string, til *Til) error {
 
 	return nil
 }
+
+func CreateTil(til *Til) error {
+	err := Post("/tils", til)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
