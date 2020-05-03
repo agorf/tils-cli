@@ -22,8 +22,9 @@ func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
 		return nil, err
 	}
 
-	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+Token)
+	req.Header.Set("User-Agent", userAgent)
 
 	return req, nil
 }
