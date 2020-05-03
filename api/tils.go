@@ -98,6 +98,15 @@ func UpdateTil(uuid string, til *Til) error {
 	return nil
 }
 
+func DestroyTil(uuid string) error {
+	err := Delete(fmt.Sprintf("/tils/%s", uuid))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func CreateTil(til *Til) error {
 	err := Post("/tils", til)
 	if err != nil {

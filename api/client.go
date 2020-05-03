@@ -88,6 +88,26 @@ func Put(path string, til *Til) error {
 	return nil
 }
 
+func Delete(path string) error {
+	req, err := NewRequest("DELETE", path, nil)
+	if err != nil {
+		return err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return errors.New(resp.Status)
+	}
+
+	return nil
+}
+
 func Post(path string, til *Til) error {
 	var body bytes.Buffer
 
