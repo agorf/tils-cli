@@ -15,6 +15,7 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() {
+	api.BaseURL = os.Getenv("TILBOARD_API_BASE_URL")
 	api.Token = os.Getenv("TILBOARD_API_TOKEN")
 
 	if err := rootCmd.Execute(); err != nil {

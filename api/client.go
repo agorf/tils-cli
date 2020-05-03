@@ -6,7 +6,6 @@ import (
 	"errors"
 	"io"
 	"net/http"
-	"os"
 )
 
 const (
@@ -14,12 +13,12 @@ const (
 )
 
 var (
-	Token string // Injected
+	BaseURL string // Injected
+	Token   string // Injected
 )
 
 func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
-	baseUrl := os.Getenv("TILBOARD_API_BASE_URL")
-	req, err := http.NewRequest(method, baseUrl+path, body)
+	req, err := http.NewRequest(method, BaseURL+path, body)
 	if err != nil {
 		return nil, err
 	}
