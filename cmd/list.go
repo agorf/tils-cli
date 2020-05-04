@@ -17,18 +17,18 @@ func (t ListTil) String() string {
 		prefixedTags[i] = "#" + tagName
 	}
 
-	titleColor := Reset
+	visibility := ""
 
 	if t.Visibility != api.Public {
-		titleColor = Red
+		visibility = Colorize(fmt.Sprintf("(%s) ", t.Visibility.String()), Yellow)
 	}
 
 	return fmt.Sprintf(
-		"%s  %s  %s  %s  %s",
+		"%s  %s  %s%s  %s",
 		Colorize(t.UUID, Purple),
 		Colorize(t.CreatedAt.Format("02 Jan 2006"), Blue),
-		Colorize(t.Visibility.String()[0:3], Green),
-		Colorize(t.Title, titleColor),
+		visibility,
+		t.Title,
 		Colorize(strings.Join(prefixedTags, " "), Blue),
 	)
 }
