@@ -17,7 +17,7 @@ var (
 	Token   string // Injected
 )
 
-func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
+func newRequest(method, path string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, BaseURL+path, body)
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func NewRequest(method, path string, body io.Reader) (*http.Request, error) {
 }
 
 func Get(path string, target interface{}) error {
-	req, err := NewRequest("GET", path, nil)
+	req, err := newRequest("GET", path, nil)
 	if err != nil {
 		return err
 	}
@@ -63,7 +63,7 @@ func Put(path string, til *Til) error {
 		return err
 	}
 
-	req, err := NewRequest("PUT", path, &body)
+	req, err := newRequest("PUT", path, &body)
 	if err != nil {
 		return err
 	}
@@ -88,7 +88,7 @@ func Put(path string, til *Til) error {
 }
 
 func Delete(path string) error {
-	req, err := NewRequest("DELETE", path, nil)
+	req, err := newRequest("DELETE", path, nil)
 	if err != nil {
 		return err
 	}
@@ -115,7 +115,7 @@ func Post(path string, til *Til) error {
 		return err
 	}
 
-	req, err := NewRequest("POST", path, &body)
+	req, err := newRequest("POST", path, &body)
 	if err != nil {
 		return err
 	}
