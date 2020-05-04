@@ -24,7 +24,8 @@ archived: {{.Archived}}
 const tilTemplateRegex = `---\n` +
 	`tags\s*:\s*(?P<tags>[ a-z0-9_]+)*\s*\n` +
 	`visibility\s*:\s*(?P<visibility>public|unlisted|private)\s*\n` +
-	`archived\s*:\s*(?P<archived>true|false)\s*\n` + `---\n` +
+	`archived\s*:\s*(?P<archived>true|false)\s*\n` +
+	`---\n` +
 	`\n` +
 	`#\s*(?P<title>.+)\n` +
 	`\n` +
