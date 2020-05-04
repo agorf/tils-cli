@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const defaultBaseURL = "https://tils.dev/api/"
+
 var rootCmd = &cobra.Command{
 	Use:           "tilboard",
 	SilenceErrors: true,
@@ -16,6 +18,11 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	api.BaseURL = os.Getenv("TILBOARD_API_BASE_URL")
+
+	if api.BaseURL == "" {
+		api.BaseURL = defaultBaseURL
+	}
+
 	api.Token = os.Getenv("TILBOARD_API_TOKEN")
 
 	if err := rootCmd.Execute(); err != nil {
