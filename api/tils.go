@@ -23,6 +23,7 @@ type Til struct {
 	UpdatedAt  time.Time  `json:"updated_at"`
 	Archived   bool       `json:"archived"`
 	TagNames   []string   `json:"tag_names"`
+	URL        string     `json:"url"`
 }
 
 func (v Visibility) String() string {

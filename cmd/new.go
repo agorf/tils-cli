@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/agorf/tilboard-cli/api"
 	"github.com/agorf/tilboard-cli/editing"
@@ -45,6 +46,8 @@ func new() error {
 	if err != nil {
 		return err
 	}
+
+	fmt.Println(newTil.URL)
 
 	return nil
 }
