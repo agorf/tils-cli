@@ -6,8 +6,6 @@ import (
 	"regexp"
 	"strings"
 	"text/template"
-
-	"github.com/agorf/tilboard-cli/api"
 )
 
 const tilTemplate = `---
@@ -35,7 +33,7 @@ var (
 	re *regexp.Regexp
 )
 
-func MarshalTil(til *api.Til) ([]byte, error) {
+func MarshalTil(til *Til) ([]byte, error) {
 	templ, err := template.New("til").Parse(tilTemplate)
 	if err != nil {
 		return nil, err
@@ -47,8 +45,8 @@ func MarshalTil(til *api.Til) ([]byte, error) {
 	return data.Bytes(), nil
 }
 
-func UnmarshalTil(data []byte) (*api.Til, error) {
-	var til api.Til
+func UnmarshalTil(data []byte) (*Til, error) {
+	var til Til
 
 	match := re.FindStringSubmatch(string(data))
 
@@ -63,7 +61,7 @@ func UnmarshalTil(data []byte) (*api.Til, error) {
 		case "tags":
 			til.TagNames = strings.Split(value, " ")
 		case "visibility":
-			v, err := api.VisibilityString(value)
+			v, err := VisibilityString(value)
 			if err != nil {
 				return nil, err
 			}

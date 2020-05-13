@@ -1,4 +1,4 @@
-package api
+package http
 
 import (
 	"bytes"
@@ -12,32 +12,40 @@ const (
 	userAgent = "https://github.com/agorf/tilboard-cli"
 )
 
-var (
-	BaseURL string // Injected
-	Token   string // Injected
-)
+type Client struct {
+	client  *http.Client
+	baseURL string
+	token   string
+}
 
-func newRequest(method, path string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, BaseURL+path, body)
+func NewClient(baseUrl, token string) Client {
+	return Client{
+		client:  &http.Client{},
+		baseURL: baseUrl,
+		token:   token,
+	}
+}
+
+func (c Client) newRequest(method, path string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequest(method, c.baseURL+path, body)
 	if err != nil {
 		return nil, err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+Token)
+	req.Header.Set("Authorization", "Bearer "+c.token)
 	req.Header.Set("User-Agent", userAgent)
 
 	return req, nil
 }
 
-func Get(path string, target interface{}) error {
-	req, err := newRequest("GET", path, nil)
+func (c Client) Get(path string, target interface{}) error {
+	req, err := c.newRequest("GET", path, nil)
 	if err != nil {
 		return err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -55,21 +63,20 @@ func Get(path string, target interface{}) error {
 	return nil
 }
 
-func Put(path string, til *Til) error {
+func (c Client) Put(path string, data interface{}, target interface{}) error {
 	var body bytes.Buffer
 
-	err := json.NewEncoder(&body).Encode(map[string]Til{"til": *til})
+	err := json.NewEncoder(&body).Encode(data)
 	if err != nil {
 		return err
 	}
 
-	req, err := newRequest("PUT", path, &body)
+	req, err := c.newRequest("PUT", path, &body)
 	if err != nil {
 		return err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -79,7 +86,7 @@ func Put(path string, til *Til) error {
 		return errors.New(resp.Status)
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(til)
+	err = json.NewDecoder(resp.Body).Decode(target)
 	if err != nil {
 		return err
 	}
@@ -87,14 +94,13 @@ func Put(path string, til *Til) error {
 	return nil
 }
 
-func Delete(path string) error {
-	req, err := newRequest("DELETE", path, nil)
+func (c Client) Delete(path string) error {
+	req, err := c.newRequest("DELETE", path, nil)
 	if err != nil {
 		return err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -107,21 +113,20 @@ func Delete(path string) error {
 	return nil
 }
 
-func Post(path string, til *Til) error {
+func (c Client) Post(path string, data interface{}, target interface{}) error {
 	var body bytes.Buffer
 
-	err := json.NewEncoder(&body).Encode(map[string]Til{"til": *til})
+	err := json.NewEncoder(&body).Encode(data)
 	if err != nil {
 		return err
 	}
 
-	req, err := newRequest("POST", path, &body)
+	req, err := c.newRequest("POST", path, &body)
 	if err != nil {
 		return err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -131,7 +136,7 @@ func Post(path string, til *Til) error {
 		return errors.New(resp.Status)
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(til)
+	err = json.NewDecoder(resp.Body).Decode(target)
 	if err != nil {
 		return err
 	}

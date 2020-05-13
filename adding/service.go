@@ -1,24 +1,18 @@
-package cmd
+package adding
 
 import (
 	"errors"
 	"fmt"
 
-	"github.com/agorf/tilboard-cli/api"
 	"github.com/agorf/tilboard-cli/editing"
-	"github.com/spf13/cobra"
 )
 
-var newCmd = &cobra.Command{
-	Use:  "new",
-	Args: cobra.NoArgs,
-	RunE: func(cmd *cobra.Command, args []string) error {
-		return new()
-	},
+type client interface {
+	Post(string, interface{}, interface{}) error
 }
 
-func new() error {
-	var til api.Til = api.Til{
+func Run(c client) error {
+	til := editing.Til{
 		Title:    "Title",
 		Content:  "Content",
 		TagNames: []string{"tag1", "tag2", "tag3"},
@@ -42,16 +36,12 @@ func new() error {
 		return err
 	}
 
-	err = api.CreateTil(newTil)
+	err = c.Post("/tils", map[string]editing.Til{"til": *newTil}, &til)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(newTil.URL)
+	fmt.Println(Til(til))
 
 	return nil
-}
-
-func init() {
-	rootCmd.AddCommand(newCmd)
 }
