@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -24,7 +25,12 @@ func run() error {
 		baseURL = defaultBaseURL
 	}
 
-	client := http.NewClient(baseURL, os.Getenv("TILBOARD_API_TOKEN"))
+	apiToken := os.Getenv("TILBOARD_API_TOKEN")
+	if apiToken == "" {
+		handleError(errors.New("TILBOARD_API_TOKEN environment variable is blank"))
+	}
+
+	client := http.NewClient(baseURL, apiToken)
 
 	cmd, args := parseArgs()
 
