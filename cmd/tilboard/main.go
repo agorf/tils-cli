@@ -26,40 +26,42 @@ func run() error {
 
 	client := http.NewClient(baseURL, os.Getenv("TILBOARD_API_TOKEN"))
 
-	switch os.Args[1] {
+	cmd, args := parseArgs()
+
+	switch cmd {
 	case "list":
-		if len(os.Args) != 2 {
+		if len(args) != 0 {
 			help()
 		}
 		if err := listing.Run(client); err != nil {
 			handleError(err)
 		}
 	case "show":
-		if len(os.Args) != 3 {
+		if len(args) != 1 {
 			help()
 		}
-		if err := showing.Run(client, os.Args[2]); err != nil {
+		if err := showing.Run(client, args[0]); err != nil {
 			handleError(err)
 		}
 	case "new":
-		if len(os.Args) != 2 {
+		if len(args) != 0 {
 			help()
 		}
 		if err := adding.Run(client); err != nil {
 			handleError(err)
 		}
 	case "edit":
-		if len(os.Args) != 3 {
+		if len(args) != 1 {
 			help()
 		}
-		if err := editing.Run(client, os.Args[2]); err != nil {
+		if err := editing.Run(client, args[0]); err != nil {
 			handleError(err)
 		}
 	case "delete":
-		if len(os.Args) != 3 {
+		if len(args) != 1 {
 			help()
 		}
-		if err := removing.Run(client, os.Args[2]); err != nil {
+		if err := removing.Run(client, args[0]); err != nil {
 			handleError(err)
 		}
 	default:
@@ -67,6 +69,13 @@ func run() error {
 	}
 
 	return nil
+}
+
+func parseArgs() (string, []string) {
+	if len(os.Args) == 1 {
+		return "", []string{}
+	}
+	return os.Args[1], os.Args[2:]
 }
 
 func handleError(err error) {
