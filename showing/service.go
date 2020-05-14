@@ -4,14 +4,14 @@ import (
 	"fmt"
 )
 
-type client interface {
-	Get(string, interface{}) error
+type store interface {
+	GetTil(string, interface{}) error
 }
 
-func Run(c client, uuid string) error {
+func Run(s store, uuid string) error {
 	var til Til
 
-	err := c.Get(fmt.Sprintf("/tils/%s", uuid), &til)
+	err := s.GetTil(uuid, &til)
 	if err != nil {
 		return err
 	}

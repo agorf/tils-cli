@@ -7,11 +7,11 @@ import (
 	"github.com/agorf/tilboard-cli/editing"
 )
 
-type client interface {
-	Post(string, interface{}, interface{}) error
+type store interface {
+	AddTil(interface{}, interface{}) error
 }
 
-func Run(c client) error {
+func Run(s store) error {
 	til := editing.Til{
 		Title:    "Title",
 		Content:  "Content",
@@ -36,7 +36,7 @@ func Run(c client) error {
 		return err
 	}
 
-	err = c.Post("/tils", map[string]editing.Til{"til": *newTil}, &til)
+	err = s.AddTil(newTil, &til)
 	if err != nil {
 		return err
 	}

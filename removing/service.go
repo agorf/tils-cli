@@ -1,15 +1,11 @@
 package removing
 
-import (
-	"fmt"
-)
-
-type client interface {
-	Delete(string) error
+type store interface {
+	RemoveTil(string) error
 }
 
-func Run(c client, uuid string) error {
-	err := c.Delete(fmt.Sprintf("/tils/%s", uuid))
+func Run(s store, uuid string) error {
+	err := s.RemoveTil(uuid)
 	if err != nil {
 		return err
 	}

@@ -4,14 +4,14 @@ import (
 	"fmt"
 )
 
-type client interface {
-	Get(string, interface{}) error
+type store interface {
+	GetTils(interface{}) error
 }
 
-func Run(c client) error {
+func Run(s store) error {
 	var tils []Til
 
-	err := c.Get("/tils", &tils)
+	err := s.GetTils(&tils)
 	if err != nil {
 		return err
 	}

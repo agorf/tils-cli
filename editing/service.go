@@ -2,18 +2,17 @@ package editing
 
 import (
 	"errors"
-	"fmt"
 )
 
-type client interface {
-	Get(string, interface{}) error
-	Put(string, interface{}, interface{}) error
+type store interface {
+	GetTil(string, interface{}) error
+	UpdateTil(string, interface{}, interface{}) error
 }
 
-func Run(c client, uuid string) error {
+func Run(s store, uuid string) error {
 	var til Til
 
-	err := c.Get(fmt.Sprintf("/tils/%s", uuid), &til)
+	err := s.GetTil(uuid, &til)
 	if err != nil {
 		return err
 	}
@@ -36,11 +35,7 @@ func Run(c client, uuid string) error {
 		return err
 	}
 
-	err = c.Put(
-		fmt.Sprintf("/tils/%s", uuid),
-		map[string]Til{"til": *newTil},
-		&til,
-	)
+	err = s.UpdateTil(uuid, newTil, &til)
 	if err != nil {
 		return err
 	}
