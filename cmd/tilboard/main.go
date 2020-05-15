@@ -15,7 +15,10 @@ import (
 	"github.com/agorf/tilboard-cli/store/http"
 )
 
-const defaultBaseURL = "https://tils.dev/api/"
+const (
+	defaultBaseURL = "https://tils.dev/api/"
+	version        = "0.1.0"
+)
 
 func run() error {
 	if len(os.Args) > 2 {
@@ -36,7 +39,7 @@ func run() error {
 	if len(os.Args) == 1 {
 		prompt := &survey.Select{
 			Message: "Command:",
-			Options: []string{"new", "show", "copy", "edit", "delete", "quit"},
+			Options: []string{"new", "show", "copy", "edit", "delete", "version", "quit"},
 		}
 		err := survey.AskOne(prompt, &command)
 		if err == terminal.InterruptErr {
@@ -69,6 +72,8 @@ func run() error {
 		if err := delete.Run(store); err != nil {
 			handleError(err)
 		}
+	case "version":
+		fmt.Println(version)
 	case "quit":
 		os.Exit(0)
 	default:
