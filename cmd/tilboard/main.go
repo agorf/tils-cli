@@ -7,11 +7,11 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
-	"github.com/agorf/tilboard-cli/adding"
-	"github.com/agorf/tilboard-cli/copying"
-	"github.com/agorf/tilboard-cli/editing"
-	"github.com/agorf/tilboard-cli/removing"
-	"github.com/agorf/tilboard-cli/showing"
+	"github.com/agorf/tilboard-cli/copy"
+	"github.com/agorf/tilboard-cli/delete"
+	"github.com/agorf/tilboard-cli/edit"
+	"github.com/agorf/tilboard-cli/new"
+	"github.com/agorf/tilboard-cli/show"
 	"github.com/agorf/tilboard-cli/store/http"
 )
 
@@ -50,23 +50,23 @@ func run() error {
 
 	switch command {
 	case "new":
-		if err := adding.Run(store); err != nil {
+		if err := new.Run(store); err != nil {
 			handleError(err)
 		}
 	case "show":
-		if err := showing.Run(store); err != nil {
+		if err := show.Run(store); err != nil {
 			handleError(err)
 		}
 	case "copy":
-		if err := copying.Run(store); err != nil {
+		if err := copy.Run(store); err != nil {
 			handleError(err)
 		}
 	case "edit":
-		if err := editing.Run(store); err != nil {
+		if err := edit.Run(store); err != nil {
 			handleError(err)
 		}
 	case "delete":
-		if err := removing.Run(store); err != nil {
+		if err := delete.Run(store); err != nil {
 			handleError(err)
 		}
 	case "quit":

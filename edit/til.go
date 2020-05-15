@@ -1,4 +1,4 @@
-package editing
+package edit
 
 type Til struct {
 	UUID       string     `json:"uuid"`

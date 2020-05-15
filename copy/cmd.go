@@ -1,15 +1,15 @@
-package removing
+package copy
 
 import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
+	"github.com/atotto/clipboard"
 )
 
 type store interface {
 	GetTils(interface{}) error
-	RemoveTil(string) error
 }
 
 func Run(s store) error {
@@ -25,7 +25,7 @@ func Run(s store) error {
 	}
 	index := 0
 	tilPrompt := &survey.Select{
-		Message: "Select til to delete:",
+		Message: "Select til to copy:",
 		Options: titles,
 	}
 	err = survey.AskOne(tilPrompt, &index)
@@ -34,26 +34,12 @@ func Run(s store) error {
 	}
 	til := tils[index]
 
-	remove := false
-	removePrompt := &survey.Confirm{
-		Message: "Delete?",
-	}
-	err = survey.AskOne(removePrompt, &remove)
-	if err == terminal.InterruptErr {
-		return nil
-	}
-
-	if !remove {
-		fmt.Println("Aborted")
-		return nil
-	}
-
-	err = s.RemoveTil(til.UUID)
+	err = clipboard.WriteAll(til.Content)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("Deleted")
+	fmt.Println("Copied to clipboard")
 
 	return nil
 }

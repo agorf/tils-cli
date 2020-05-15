@@ -1,4 +1,4 @@
-package removing
+package delete
 
 type Til struct {
 	UUID  string `json:"uuid"`

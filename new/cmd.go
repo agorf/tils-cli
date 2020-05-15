@@ -1,4 +1,4 @@
-package adding
+package new
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
-	"github.com/agorf/tilboard-cli/editing"
+	"github.com/agorf/tilboard-cli/edit"
 )
 
 type store interface {
@@ -45,7 +45,7 @@ func Run(s store) error {
 	if err == terminal.InterruptErr {
 		return nil
 	}
-	visibility, _ := editing.VisibilityString(visibilityStr)
+	visibility, _ := edit.VisibilityString(visibilityStr)
 
 	content := ""
 	contentPrompt := &survey.Editor{

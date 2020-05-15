@@ -1,4 +1,4 @@
-package editing
+package edit
 
 import (
 	"encoding/json"

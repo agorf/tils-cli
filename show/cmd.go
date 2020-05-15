@@ -1,4 +1,4 @@
-package showing
+package show
 
 import (
 	"fmt"

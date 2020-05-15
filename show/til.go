@@ -1,4 +1,4 @@
-package copying
+package show
 
 type Til struct {
 	Title   string `json:"title"`
