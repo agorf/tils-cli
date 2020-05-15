@@ -13,14 +13,6 @@ func NewStore(baseURL, apiToken string) *store {
 	return &store{&client}
 }
 
-func (s *store) GetTil(uuid string, target interface{}) error {
-	err := s.client.Get(fmt.Sprintf("/tils/%s", uuid), target)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func (s *store) GetTils(target interface{}) error {
 	err := s.client.Get("/tils", target)
 	if err != nil {

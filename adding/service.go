@@ -1,9 +1,11 @@
 package adding
 
 import (
-	"errors"
 	"fmt"
+	"strings"
 
+	"github.com/AlecAivazis/survey/v2"
+	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/agorf/tilboard-cli/editing"
 )
 
@@ -12,36 +14,67 @@ type store interface {
 }
 
 func Run(s store) error {
-	til := editing.Til{
-		Title:    "Title",
-		Content:  "Content",
-		TagNames: []string{"tag1", "tag2", "tag3"},
+	title := ""
+	titlePrompt := &survey.Input{
+		Message: "Title:",
+	}
+	err := survey.AskOne(
+		titlePrompt,
+		&title,
+		survey.WithValidator(survey.Required),
+	)
+	if err == terminal.InterruptErr {
+		return nil
 	}
 
-	text, err := editing.MarshalTil(&til)
-	if err != nil {
-		return err
+	tagNames := ""
+	tagNamesPrompt := &survey.Input{
+		Message: "Tags:",
+	}
+	err = survey.AskOne(tagNamesPrompt, &tagNames)
+	if err == terminal.InterruptErr {
+		return nil
 	}
 
-	newText, changed, err := editing.CaptureInputFromEditor(text)
-	if err != nil {
-		return err
+	visibilityStr := ""
+	visibilityPrompt := &survey.Select{
+		Message: "Visibility:",
+		Options: []string{"public", "unlisted", "private"},
 	}
-	if !changed {
-		return errors.New("File did not change")
+	err = survey.AskOne(visibilityPrompt, &visibilityStr)
+	if err == terminal.InterruptErr {
+		return nil
+	}
+	visibility, _ := editing.VisibilityString(visibilityStr)
+
+	content := ""
+	contentPrompt := &survey.Editor{
+		Message:       "Content:",
+		AppendDefault: true,
+	}
+	err = survey.AskOne(
+		contentPrompt,
+		&content,
+		survey.WithValidator(survey.Required),
+	)
+	if err == terminal.InterruptErr {
+		return nil
 	}
 
-	newTil, err := editing.UnmarshalTil(newText)
-	if err != nil {
-		return err
+	newTil := Til{
+		Title:      title,
+		Content:    string(content),
+		TagNames:   strings.Split(tagNames, " "),
+		Visibility: visibility,
 	}
 
+	var til Til
 	err = s.AddTil(newTil, &til)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(Til(til))
+	fmt.Println(til.URL)
 
 	return nil
 }
