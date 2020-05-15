@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 )
 
 const (
-	userAgent = "https://github.com/agorf/tilboard-cli"
+	apiVersion = 1
+	userAgent  = "https://github.com/agorf/tilboard-cli"
 )
 
 type Client struct {
@@ -32,6 +34,7 @@ func (c Client) newRequest(method, path string, body io.Reader) (*http.Request, 
 		return nil, err
 	}
 
+	req.Header.Set("Accept", fmt.Sprintf("application/vnd.tilboard.v%d", apiVersion))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+c.token)
 	req.Header.Set("User-Agent", userAgent)
