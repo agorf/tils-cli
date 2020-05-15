@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/agorf/tilboard-cli/editing"
 )
 
 type Til struct {
-	UUID       string     `json:"uuid"`
-	Title      string     `json:"title"`
-	Visibility Visibility `json:"visibility"`
-	CreatedAt  time.Time  `json:"created_at"`
-	TagNames   []string   `json:"tag_names"`
+	UUID       string             `json:"uuid"`
+	Title      string             `json:"title"`
+	Visibility editing.Visibility `json:"visibility"`
+	CreatedAt  time.Time          `json:"created_at"`
+	TagNames   []string           `json:"tag_names"`
 }
 
 func (t Til) String() string {
@@ -21,7 +23,7 @@ func (t Til) String() string {
 	}
 
 	visibility := ""
-	if t.Visibility != Public {
+	if t.Visibility != editing.Public {
 		visibility = colorize(fmt.Sprintf("(%s) ", t.Visibility), yellow)
 	}
 

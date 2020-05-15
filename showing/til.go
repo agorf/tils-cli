@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/agorf/tilboard-cli/editing"
 )
 
 type Til struct {
-	Title      string     `json:"title"`
-	Content    string     `json:"content"`
-	Visibility Visibility `json:"visibility"`
-	CreatedAt  time.Time  `json:"created_at"`
-	Archived   bool       `json:"archived"`
-	TagNames   []string   `json:"tag_names"`
+	Title      string             `json:"title"`
+	Content    string             `json:"content"`
+	Visibility editing.Visibility `json:"visibility"`
+	CreatedAt  time.Time          `json:"created_at"`
+	Archived   bool               `json:"archived"`
+	TagNames   []string           `json:"tag_names"`
 }
 
 func (t Til) String() string {
