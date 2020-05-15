@@ -42,7 +42,6 @@ func Run(s store) error {
 	if err == terminal.InterruptErr {
 		return nil
 	}
-
 	if !remove {
 		fmt.Println("Aborted")
 		return nil

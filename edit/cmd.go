@@ -78,6 +78,19 @@ func Run(s store) error {
 		return nil
 	}
 
+	update := false
+	updatePrompt := &survey.Confirm{
+		Message: "Update?",
+	}
+	err = survey.AskOne(updatePrompt, &update)
+	if err == terminal.InterruptErr {
+		return nil
+	}
+	if !update {
+		fmt.Println("Aborted")
+		return nil
+	}
+
 	newTil := Til{
 		Title:      title,
 		Content:    string(content),
