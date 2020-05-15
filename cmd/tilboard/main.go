@@ -35,7 +35,7 @@ func run() error {
 	if len(os.Args) == 1 {
 		prompt := &survey.Select{
 			Message: "Command:",
-			Options: []string{"show", "new", "edit", "delete"},
+			Options: []string{"show", "new", "edit", "delete", "quit"},
 		}
 		err := survey.AskOne(prompt, &command)
 		if err == terminal.InterruptErr {
@@ -64,6 +64,8 @@ func run() error {
 		if err := removing.Run(store); err != nil {
 			handleError(err)
 		}
+	case "quit":
+		os.Exit(0)
 	default:
 		help()
 	}
