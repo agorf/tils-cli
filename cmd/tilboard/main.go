@@ -8,6 +8,7 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
 	"github.com/agorf/tilboard-cli/adding"
+	"github.com/agorf/tilboard-cli/copying"
 	"github.com/agorf/tilboard-cli/editing"
 	"github.com/agorf/tilboard-cli/removing"
 	"github.com/agorf/tilboard-cli/showing"
@@ -35,7 +36,7 @@ func run() error {
 	if len(os.Args) == 1 {
 		prompt := &survey.Select{
 			Message: "Command:",
-			Options: []string{"show", "new", "edit", "delete", "quit"},
+			Options: []string{"show", "copy", "new", "edit", "delete", "quit"},
 		}
 		err := survey.AskOne(prompt, &command)
 		if err == terminal.InterruptErr {
@@ -50,6 +51,10 @@ func run() error {
 	switch command {
 	case "show":
 		if err := showing.Run(store); err != nil {
+			handleError(err)
+		}
+	case "copy":
+		if err := copying.Run(store); err != nil {
 			handleError(err)
 		}
 	case "new":
