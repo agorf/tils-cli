@@ -36,7 +36,7 @@ func run() error {
 	if len(os.Args) == 1 {
 		prompt := &survey.Select{
 			Message: "Command:",
-			Options: []string{"show", "copy", "new", "edit", "delete", "quit"},
+			Options: []string{"new", "show", "copy", "edit", "delete", "quit"},
 		}
 		err := survey.AskOne(prompt, &command)
 		if err == terminal.InterruptErr {
@@ -49,16 +49,16 @@ func run() error {
 	store := http.NewStore(baseURL, apiToken)
 
 	switch command {
+	case "new":
+		if err := adding.Run(store); err != nil {
+			handleError(err)
+		}
 	case "show":
 		if err := showing.Run(store); err != nil {
 			handleError(err)
 		}
 	case "copy":
 		if err := copying.Run(store); err != nil {
-			handleError(err)
-		}
-	case "new":
-		if err := adding.Run(store); err != nil {
 			handleError(err)
 		}
 	case "edit":
