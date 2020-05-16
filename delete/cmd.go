@@ -48,11 +48,12 @@ func Run(s store) error {
 		return nil
 	}
 
+	fmt.Print("Deleting... ")
 	err = s.RemoveTil(til.UUID)
 	if err != nil {
 		return err
 	}
-	fmt.Println("Deleted")
+	fmt.Println("Done")
 
 	return nil
 }

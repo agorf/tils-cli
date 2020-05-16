@@ -99,11 +99,12 @@ func Run(s store) error {
 		Visibility: visibility,
 	}
 
+	fmt.Print("Updating... ")
 	err = s.UpdateTil(til.UUID, newTil, &til)
 	if err != nil {
 		return err
 	}
-	fmt.Println("Updated")
+	fmt.Println("Done")
 
 	return nil
 }

@@ -81,12 +81,14 @@ func Run(s store) error {
 		Visibility: visibility,
 	}
 
+	fmt.Print("Adding... ")
 	var til Til
 	err = s.AddTil(newTil, &til)
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Added: %s\n", til.URL)
+	fmt.Println("Done")
+	fmt.Println(til.URL)
 
 	return nil
 }
