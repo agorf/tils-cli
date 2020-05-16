@@ -86,7 +86,7 @@ func Run(s store) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(til.URL)
+	fmt.Printf("Added: %s\n", til.URL)
 
 	return nil
 }
