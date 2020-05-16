@@ -94,7 +94,7 @@ func Run(s store) error {
 
 	newTil := Til{
 		Title:      title,
-		Content:    string(content),
+		Content:    content,
 		TagNames:   strings.Split(tagNames, " "),
 		Visibility: visibility,
 	}
