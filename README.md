@@ -8,7 +8,15 @@
 
 ## Installation
 
-You first need to install [Go](https://golang.org/).
+### Pre-built binaries
+
+Binaries for Linux, MacOS and Windows are available under [releases][].
+
+[releases]: https://github.com/agorf/tils-cli/releases
+
+### From source
+
+You need to have [Go](https://golang.org/) installed.
 
 On Debian GNU/Linux:
 
