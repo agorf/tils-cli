@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/github/v/tag/agorf/tils-cli?label=version&sort=semver)
 
-**tils-cli** is a command-line client for [tils.dev][]
+A command-line client for [tils.dev][]
 
 [tils.dev]: https://tils.dev/
 
