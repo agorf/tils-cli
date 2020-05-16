@@ -38,7 +38,7 @@ func run() error {
 	command := ""
 	if len(os.Args) == 1 {
 		prompt := &survey.Select{
-			Message: "Command:",
+			Message: "Select til command:",
 			Options: []string{"new", "show", "copy", "edit", "delete", "version", "quit"},
 		}
 		err := survey.AskOne(prompt, &command)
