@@ -85,7 +85,6 @@ func Run(s store) error {
 		TagNames:   tagNames,
 		Visibility: visibility,
 	}
-
 	fmt.Print("Adding... ")
 	var til Til
 	err = s.AddTil(newTil, &til)

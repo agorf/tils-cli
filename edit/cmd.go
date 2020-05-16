@@ -104,7 +104,6 @@ func Run(s store) error {
 		TagNames:   tagNames,
 		Visibility: visibility,
 	}
-
 	fmt.Print("Updating... ")
 	err = s.UpdateTil(til.UUID, newTil, &til)
 	if err != nil {
