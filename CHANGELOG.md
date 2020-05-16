@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog][] and this project adheres to
 
 ## [Unreleased][]
 
+### Added
+
+- Add this changelog file
+
 ### Changed
 
 - Fix delete command not to treat 204 No Content as an error
