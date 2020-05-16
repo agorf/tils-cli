@@ -38,6 +38,7 @@ func Run(s store) error {
 	archive := false
 	archivePrompt := &survey.Confirm{
 		Message: "Archive?",
+		Default: true,
 	}
 	err = survey.AskOne(archivePrompt, &archive)
 	if err == terminal.InterruptErr {

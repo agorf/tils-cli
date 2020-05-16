@@ -38,6 +38,7 @@ func Run(s store) error {
 	remove := false
 	removePrompt := &survey.Confirm{
 		Message: "Delete?",
+		Default: true,
 	}
 	err = survey.AskOne(removePrompt, &remove)
 	if err == terminal.InterruptErr {

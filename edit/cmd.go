@@ -86,6 +86,7 @@ func Run(s store) error {
 	update := false
 	updatePrompt := &survey.Confirm{
 		Message: "Update?",
+		Default: true,
 	}
 	err = survey.AskOne(updatePrompt, &update)
 	if err == terminal.InterruptErr {

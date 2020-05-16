@@ -68,6 +68,7 @@ func Run(s store) error {
 	create := false
 	createPrompt := &survey.Confirm{
 		Message: "Create?",
+		Default: true,
 	}
 	err = survey.AskOne(createPrompt, &create)
 	if err == terminal.InterruptErr {
