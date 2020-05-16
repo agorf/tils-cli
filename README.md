@@ -54,15 +54,15 @@ tils-cli [command]
 
 Commands:
 
-    new      Create til
-    show     Show til content in the terminal
-    open     Open til in the browser
-    copy     Copy til to the clipboard
-    edit     Edit til
-    archive  Archive til
-    delete   Delete til
-    version  Print the current version
-    help     Print this help text
+    new        Create til
+    show       Show til content in the terminal
+    open       Open til in the browser
+    copy       Copy til to the clipboard
+    edit       Edit til
+    archive    Archive til
+    delete     Delete til
+    version    Print the current version
+    help       Print this help text
 
 If a command is not provided, a picker will ask for one
 
