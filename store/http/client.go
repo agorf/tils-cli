@@ -9,12 +9,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/agorf/tilboard-cli/version"
+	"github.com/agorf/tils-cli/version"
 )
 
 const (
 	apiVersion = 1
-	userAgent  = "tilboard-cli/" + version.Version
+	userAgent  = "tils-cli/" + version.Version
 )
 
 type ResponseErrors struct {

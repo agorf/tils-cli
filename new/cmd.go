@@ -6,7 +6,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
-	"github.com/agorf/tilboard-cli/edit"
+	"github.com/agorf/tils-cli/edit"
 )
 
 type store interface {

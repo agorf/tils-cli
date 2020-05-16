@@ -1,7 +1,7 @@
 package new
 
 import (
-	"github.com/agorf/tilboard-cli/edit"
+	"github.com/agorf/tils-cli/edit"
 )
 
 type Til struct {

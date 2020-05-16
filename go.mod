@@ -1,4 +1,4 @@
-module github.com/agorf/tilboard-cli
+module github.com/agorf/tils-cli
 
 go 1.14
 

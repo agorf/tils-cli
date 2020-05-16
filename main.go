@@ -7,15 +7,15 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
-	"github.com/agorf/tilboard-cli/archive"
-	"github.com/agorf/tilboard-cli/copy"
-	"github.com/agorf/tilboard-cli/delete"
-	"github.com/agorf/tilboard-cli/edit"
-	"github.com/agorf/tilboard-cli/new"
-	"github.com/agorf/tilboard-cli/open"
-	"github.com/agorf/tilboard-cli/show"
-	"github.com/agorf/tilboard-cli/store/http"
-	"github.com/agorf/tilboard-cli/version"
+	"github.com/agorf/tils-cli/archive"
+	"github.com/agorf/tils-cli/copy"
+	"github.com/agorf/tils-cli/delete"
+	"github.com/agorf/tils-cli/edit"
+	"github.com/agorf/tils-cli/new"
+	"github.com/agorf/tils-cli/open"
+	"github.com/agorf/tils-cli/show"
+	"github.com/agorf/tils-cli/store/http"
+	"github.com/agorf/tils-cli/version"
 )
 
 const (
@@ -27,14 +27,14 @@ func run() error {
 		help()
 	}
 
-	baseURL := os.Getenv("TILBOARD_API_BASE_URL")
+	baseURL := os.Getenv("TILS_CLI_API_BASE_URL")
 	if baseURL == "" {
 		baseURL = defaultBaseURL
 	}
 
-	apiToken := os.Getenv("TILBOARD_API_TOKEN")
+	apiToken := os.Getenv("TILS_CLI_API_TOKEN")
 	if apiToken == "" {
-		handleError(errors.New("TILBOARD_API_TOKEN environment variable is blank"))
+		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank"))
 	}
 
 	command := ""
@@ -127,7 +127,7 @@ func help() {
 	fmt.Println()
 	fmt.Println("Environment variables:")
 	fmt.Println()
-	fmt.Println("    TILBOARD_API_TOKEN  Token to access the API with")
+	fmt.Println("    TILS_CLI_API_TOKEN  Token to access the API with")
 
 	os.Exit(1)
 }
