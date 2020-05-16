@@ -34,7 +34,7 @@ func run() error {
 
 	apiToken := os.Getenv("TILS_CLI_API_TOKEN")
 	if apiToken == "" {
-		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank"))
+		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank\n\nVisit https://tils.dev/account to get your API token"))
 	}
 
 	command := ""

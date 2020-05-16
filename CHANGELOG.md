@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog][] and this project adheres to
 ### Changed
 
 - Fix delete command not to treat 204 No Content as an error
+- Make missing API token environment variable message more helpful
 
 ## [0.1.0][] - 2020-05-16
 
