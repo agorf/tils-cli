@@ -12,6 +12,7 @@ import (
 	"github.com/agorf/tilboard-cli/delete"
 	"github.com/agorf/tilboard-cli/edit"
 	"github.com/agorf/tilboard-cli/new"
+	"github.com/agorf/tilboard-cli/open"
 	"github.com/agorf/tilboard-cli/show"
 	"github.com/agorf/tilboard-cli/store/http"
 )
@@ -43,6 +44,7 @@ func run() error {
 			Options: []string{
 				"new",
 				"show",
+				"open",
 				"copy",
 				"edit",
 				"archive",
@@ -68,6 +70,10 @@ func run() error {
 		}
 	case "show":
 		if err := show.Run(store); err != nil {
+			handleError(err)
+		}
+	case "open":
+		if err := open.Run(store); err != nil {
 			handleError(err)
 		}
 	case "copy":
