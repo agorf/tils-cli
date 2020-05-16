@@ -14,6 +14,7 @@ type store interface {
 }
 
 func Run(s store) error {
+	fmt.Println("Fetching tils...")
 	var tils []Til
 	err := s.GetTils(&tils)
 	if err != nil {
