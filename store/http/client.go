@@ -116,7 +116,7 @@ func (c Client) Delete(path string) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != 200 && resp.StatusCode != 204 { // 204 No Content
 		return errorFromResponse(resp)
 	}
 
