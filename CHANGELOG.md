@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog][] and this project adheres to
 ### Added
 
 - Add this changelog file
+- Add support for choosing which line to copy
 
 ### Changed
 

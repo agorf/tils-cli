@@ -2,6 +2,7 @@ package copy
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
@@ -24,18 +25,39 @@ func Run(s store) error {
 	for _, til := range tils {
 		titles = append(titles, til.Title)
 	}
-	index := 0
+	tilIndex := 0
 	tilPrompt := &survey.Select{
 		Message: "Select til to copy:",
 		Options: titles,
 	}
-	err = survey.AskOne(tilPrompt, &index)
+	err = survey.AskOne(tilPrompt, &tilIndex)
 	if err == terminal.InterruptErr {
 		return nil
 	}
-	til := tils[index]
+	til := tils[tilIndex]
 
-	err = clipboard.WriteAll(til.Content)
+	allLines := strings.Split(strings.Replace(til.Content, "\r\n", "\n", -1), "\n")
+	var lines []string
+	for _, line := range allLines {
+		if len(line) > 0 && line[0:3] != "```" {
+			lines = append(lines, line)
+		}
+	}
+
+	lineIndex := 0
+	if len(lines) > 1 {
+		linePrompt := &survey.Select{
+			Message: "Select line to copy:",
+			Options: lines,
+		}
+		err = survey.AskOne(linePrompt, &lineIndex)
+		if err == terminal.InterruptErr {
+			return nil
+		}
+	}
+	line := lines[lineIndex]
+
+	err = clipboard.WriteAll(line)
 	if err != nil {
 		return err
 	}
