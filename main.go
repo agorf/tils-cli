@@ -109,7 +109,26 @@ func handleError(err error) {
 }
 
 func help() {
-	fmt.Println("help")
+	fmt.Printf("%s [command]\n", os.Args[0])
+	fmt.Println()
+	fmt.Println("Commands:")
+	fmt.Println()
+	fmt.Println("    new      Create til")
+	fmt.Println("    show     Show til content in the terminal")
+	fmt.Println("    open     Open til in the browser")
+	fmt.Println("    copy     Copy til to the clipboard")
+	fmt.Println("    edit     Edit til")
+	fmt.Println("    archive  Archive til")
+	fmt.Println("    delete   Delete til")
+	fmt.Println("    version  Print the current version")
+	fmt.Println("    help     Print this help text")
+	fmt.Println()
+	fmt.Println("If a command is not provided, a picker will ask for one")
+	fmt.Println()
+	fmt.Println("Environment variables:")
+	fmt.Println()
+	fmt.Println("    TILBOARD_API_TOKEN  Token to access the API with")
+
 	os.Exit(1)
 }
 
