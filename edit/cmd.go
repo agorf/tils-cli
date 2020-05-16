@@ -50,6 +50,7 @@ func Run(s store) error {
 	tagNamesPrompt := &survey.Input{
 		Message: "Tags:",
 		Default: strings.Join(til.TagNames, " "),
+		Help:    "Enter a space character to clear tags",
 	}
 	err = survey.AskOne(tagNamesPrompt, &tagNamesStr)
 	if err == terminal.InterruptErr {
