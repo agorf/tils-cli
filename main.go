@@ -34,7 +34,7 @@ func run() error {
 
 	apiToken := os.Getenv("TILS_CLI_API_TOKEN")
 	if apiToken == "" {
-		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank"))
+		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank\n\nVisit https://tils.dev/account to get your API token"))
 	}
 
 	command := ""
@@ -113,21 +113,17 @@ func help() {
 	fmt.Println()
 	fmt.Println("Commands:")
 	fmt.Println()
-	fmt.Println("    new      Create til")
-	fmt.Println("    show     Show til content in the terminal")
-	fmt.Println("    open     Open til in the browser")
-	fmt.Println("    copy     Copy til to the clipboard")
-	fmt.Println("    edit     Edit til")
-	fmt.Println("    archive  Archive til")
-	fmt.Println("    delete   Delete til")
-	fmt.Println("    version  Print the current version")
-	fmt.Println("    help     Print this help text")
+	fmt.Println("    new        Create til")
+	fmt.Println("    show       Show til content in the terminal")
+	fmt.Println("    open       Open til in the browser")
+	fmt.Println("    copy       Copy til to the clipboard")
+	fmt.Println("    edit       Edit til")
+	fmt.Println("    archive    Archive til")
+	fmt.Println("    delete     Delete til")
+	fmt.Println("    version    Print the current version")
+	fmt.Println("    help       Print this help text")
 	fmt.Println()
 	fmt.Println("If a command is not provided, a picker will ask for one")
-	fmt.Println()
-	fmt.Println("Environment variables:")
-	fmt.Println()
-	fmt.Println("    TILS_CLI_API_TOKEN  Token to access the API with")
 
 	os.Exit(1)
 }

@@ -36,9 +36,6 @@ func Run(s store) error {
 	til := tils[index]
 
 	err = open.Run(til.URL)
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }

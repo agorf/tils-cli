@@ -66,11 +66,8 @@ func (c Client) Get(path string, target interface{}) error {
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }
 
 func (c Client) Put(path string, data interface{}, target interface{}) error {
@@ -97,11 +94,8 @@ func (c Client) Put(path string, data interface{}, target interface{}) error {
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }
 
 func (c Client) Delete(path string) error {
@@ -116,7 +110,7 @@ func (c Client) Delete(path string) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != 200 && resp.StatusCode != 204 { // 204 No Content
 		return errorFromResponse(resp)
 	}
 
@@ -147,11 +141,8 @@ func (c Client) Post(path string, data interface{}, target interface{}) error {
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }
 
 func errorFromResponse(resp *http.Response) error {

@@ -8,7 +8,15 @@
 
 ## Installation
 
-You first need to install [Go](https://golang.org/).
+### Pre-built binaries
+
+Binaries for Linux, MacOS and Windows are available under [releases][].
+
+[releases]: https://github.com/agorf/tils-cli/releases
+
+### From source
+
+You need to have [Go](https://golang.org/) installed.
 
 On Debian GNU/Linux:
 
@@ -46,21 +54,17 @@ tils-cli [command]
 
 Commands:
 
-    new      Create til
-    show     Show til content in the terminal
-    open     Open til in the browser
-    copy     Copy til to the clipboard
-    edit     Edit til
-    archive  Archive til
-    delete   Delete til
-    version  Print the current version
-    help     Print this help text
+    new        Create til
+    show       Show til content in the terminal
+    open       Open til in the browser
+    copy       Copy til to the clipboard
+    edit       Edit til
+    archive    Archive til
+    delete     Delete til
+    version    Print the current version
+    help       Print this help text
 
 If a command is not provided, a picker will ask for one
-
-Environment variables:
-
-    TILS_CLI_API_TOKEN  Token to access the API with
 ```
 
 ## License
