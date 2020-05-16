@@ -27,14 +27,18 @@ func Run(s store) error {
 		return nil
 	}
 
-	tagNames := ""
+	tagNamesStr := ""
 	tagNamesPrompt := &survey.Input{
 		Message: "Tags:",
 	}
-	err = survey.AskOne(tagNamesPrompt, &tagNames)
+	err = survey.AskOne(tagNamesPrompt, &tagNamesStr)
 	if err == terminal.InterruptErr {
 		return nil
 	}
+	splitFn := func(c rune) bool {
+		return c == ' '
+	}
+	tagNames := strings.FieldsFunc(tagNamesStr, splitFn)
 
 	visibilityStr := ""
 	visibilityPrompt := &survey.Select{
@@ -77,7 +81,7 @@ func Run(s store) error {
 	newTil := Til{
 		Title:      title,
 		Content:    content,
-		TagNames:   strings.Split(tagNames, " "),
+		TagNames:   tagNames,
 		Visibility: visibility,
 	}
 
