@@ -7,12 +7,17 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 const (
 	apiVersion = 1
 	userAgent  = "https://github.com/agorf/tilboard-cli"
 )
+
+type ResponseErrors struct {
+	Errors []string `json:"errors"`
+}
 
 type Client struct {
 	client  *http.Client
@@ -55,7 +60,7 @@ func (c Client) Get(path string, target interface{}) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return errors.New(resp.Status)
+		return errorFromResponse(resp)
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
@@ -86,7 +91,7 @@ func (c Client) Put(path string, data interface{}, target interface{}) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return errors.New(resp.Status)
+		return errorFromResponse(resp)
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
@@ -109,8 +114,8 @@ func (c Client) Delete(path string) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return errors.New(resp.Status)
+	if resp.StatusCode != 200 {
+		return errorFromResponse(resp)
 	}
 
 	return nil
@@ -136,7 +141,7 @@ func (c Client) Post(path string, data interface{}, target interface{}) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return errors.New(resp.Status)
+		return errorFromResponse(resp)
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(target)
@@ -145,4 +150,17 @@ func (c Client) Post(path string, data interface{}, target interface{}) error {
 	}
 
 	return nil
+}
+
+func errorFromResponse(resp *http.Response) error {
+	if resp.StatusCode != 422 {
+		return errors.New(resp.Status)
+	}
+
+	var respErrors ResponseErrors
+	err := json.NewDecoder(resp.Body).Decode(&respErrors)
+	if err != nil {
+		return err
+	}
+	return errors.New(strings.Join(respErrors.Errors, ", "))
 }
