@@ -33,7 +33,6 @@ func Run(s store) error {
 		return nil
 	}
 	til := tils[index]
-
 	fmt.Println(til.Content)
 
 	return nil

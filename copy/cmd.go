@@ -39,7 +39,6 @@ func Run(s store) error {
 	if err != nil {
 		return err
 	}
-
 	fmt.Println("Copied to clipboard")
 
 	return nil
