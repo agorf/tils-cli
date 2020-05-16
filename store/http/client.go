@@ -8,11 +8,13 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/agorf/tilboard-cli/version"
 )
 
 const (
 	apiVersion = 1
-	userAgent  = "https://github.com/agorf/tilboard-cli"
+	userAgent  = "tilboard-cli/" + version.Version
 )
 
 type ResponseErrors struct {

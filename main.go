@@ -15,11 +15,11 @@ import (
 	"github.com/agorf/tilboard-cli/open"
 	"github.com/agorf/tilboard-cli/show"
 	"github.com/agorf/tilboard-cli/store/http"
+	"github.com/agorf/tilboard-cli/version"
 )
 
 const (
 	defaultBaseURL = "https://tils.dev/api/"
-	version        = "0.1.0"
 )
 
 func run() error {
@@ -93,7 +93,7 @@ func run() error {
 			handleError(err)
 		}
 	case "version":
-		fmt.Println(version)
+		fmt.Println(version.Version)
 	case "quit":
 		os.Exit(0)
 	default:
