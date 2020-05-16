@@ -65,10 +65,6 @@ Commands:
     help       Print this help text
 
 If a command is not provided, a picker will ask for one
-
-Environment variables:
-
-    TILS_CLI_API_TOKEN  Token to access the API with
 ```
 
 ## License

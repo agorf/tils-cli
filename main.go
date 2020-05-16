@@ -124,10 +124,6 @@ func help() {
 	fmt.Println("    help       Print this help text")
 	fmt.Println()
 	fmt.Println("If a command is not provided, a picker will ask for one")
-	fmt.Println()
-	fmt.Println("Environment variables:")
-	fmt.Println()
-	fmt.Println("    TILS_CLI_API_TOKEN  Token to access the API with")
 
 	os.Exit(1)
 }
