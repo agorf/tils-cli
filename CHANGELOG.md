@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog][] and this project adheres to
 
 ## [Unreleased][]
 
+### Added
+
+- Add support for JSON file configuration
+
 ### Changed
 
 - Change binary name from tils-cli to tils

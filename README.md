@@ -38,12 +38,23 @@ go get github.com/agorf/tils-cli/cmd/tils
 
 ## Configuration
 
-You need to set the `TILS_CLI_API_TOKEN` environment variable to your [tils.dev][] API token.
-
-To get your [tils.dev][] API token, [sign up][] and go to [your account][account].
+First [sign up][] for an account and get your [API token][].
 
 [sign up]: https://tils.dev/signup
-[account]: https://tils.dev/account
+[API token]: https://tils.dev/account
+
+Create a file under `~/.config/tils-cli.json` and enter:
+
+```json
+{
+  "api_token": "mytoken"
+}
+```
+
+Replace `mytoken` with your API token.
+
+Alternatively, you can set the `TILS_CLI_API_TOKEN` environment variable which
+takes precedence over the config file.
 
 ## Usage
 
