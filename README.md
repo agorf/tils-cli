@@ -6,6 +6,10 @@ A command-line client for [tils.dev][]
 
 [tils.dev]: https://tils.dev/
 
+**Note:** Visit the [master branch][master] for the latest released version.
+
+[master]: https://github.com/agorf/tils-cli/tree/master
+
 ## Installation
 
 ### Pre-built binaries
