@@ -10,6 +10,17 @@ The format is based on [Keep a Changelog][] and this project adheres to
 
 ## [Unreleased][]
 
+## [0.3.0][] - 2020-05-17
+
+### Added
+
+- Add support for JSON file configuration
+- Add config command
+
+### Changed
+
+- Change binary name from tils-cli to tils
+
 ## [0.2.0][] - 2020-05-16
 
 ### Added
@@ -27,6 +38,7 @@ The format is based on [Keep a Changelog][] and this project adheres to
 
 - Initial release
 
-[Unreleased]: https://github.com/agorf/tils-cli/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/agorf/tils-cli/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/agorf/tils-cli/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/agorf/tils-cli/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/agorf/tils-cli/releases/tag/0.1.0

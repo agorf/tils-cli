@@ -2,9 +2,13 @@
 
 ![](https://img.shields.io/github/v/tag/agorf/tils-cli?label=version&sort=semver)
 
-**tils-cli** is a command-line client for [tils.dev][]
+A command-line client for [tils.dev][]
 
 [tils.dev]: https://tils.dev/
+
+**Note:** Visit the [master branch][master] for the latest released version.
+
+[master]: https://github.com/agorf/tils-cli/tree/master
 
 ## Installation
 
@@ -33,24 +37,33 @@ brew install go
 Then issue:
 
 ```shell
-go get https://github.com/agorf/tils-cli
+go get github.com/agorf/tils-cli/cmd/tils
 ```
 
 ## Configuration
 
-You need to set the `TILS_CLI_API_TOKEN` environment variable to your [tils.dev][] API token.
-
-To get your [tils.dev][] API token, [sign up][] and go to [your account][account].
+First [sign up][] for an account and get your [API token][].
 
 [sign up]: https://tils.dev/signup
-[account]: https://tils.dev/account
+[API token]: https://tils.dev/account
+
+Use the `config` command to enter your API token:
+
+```plaintext
+$ tils config
+? API token: 41271f50fd9a7dcf904a727039a5ec24
+Wrote config
+```
+
+Alternatively, you can set the `TILS_CLI_API_TOKEN` environment variable which
+takes precedence over the config file.
 
 ## Usage
 
-This is the output of `tils-cli help`:
+This is the output of the `help` command:
 
 ```plaintext
-tils-cli [command]
+tils [command]
 
 Commands:
 
@@ -61,6 +74,7 @@ Commands:
     edit       Edit til
     archive    Archive til
     delete     Delete til
+    config     Configure
     version    Print the current version
     help       Print this help text
 
