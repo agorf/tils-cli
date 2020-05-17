@@ -60,9 +60,8 @@ takes precedence over the config file.
 
 ## Usage
 
-This is the output of the `help` command:
-
 ```plaintext
+$ tils help
 tils [command]
 
 Commands:
