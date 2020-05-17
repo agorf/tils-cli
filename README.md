@@ -33,7 +33,7 @@ brew install go
 Then issue:
 
 ```shell
-go get https://github.com/agorf/tils-cli
+go get github.com/agorf/tils-cli/cmd/tils
 ```
 
 ## Configuration
@@ -47,10 +47,10 @@ To get your [tils.dev][] API token, [sign up][] and go to [your account][account
 
 ## Usage
 
-This is the output of `tils-cli help`:
+This is the output of the `help` command:
 
 ```plaintext
-tils-cli [command]
+tils [command]
 
 Commands:
 
