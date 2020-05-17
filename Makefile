@@ -19,7 +19,7 @@ build_windows:
 	GOOS=windows GOARCH=amd64 go build -o bin/tils-${VERSION}-windows-amd64 cmd/tils/main.go
 	GOOS=windows GOARCH=386 go build -o bin/tils-${VERSION}-windows-386 cmd/tils/main.go
 
-build_all: build_linux build_darwin build_windows
+build_all: clean build_linux build_darwin build_windows
 
 clean:
 	rm -f bin/*
