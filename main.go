@@ -22,9 +22,9 @@ const (
 	defaultBaseURL = "https://tils.dev/api/"
 )
 
-func run() error {
+func run() (bool, error) {
 	if len(os.Args) > 2 {
-		help()
+		return true, errors.New("Invalid parameters")
 	}
 
 	baseURL := os.Getenv("TILS_CLI_API_BASE_URL")
@@ -34,7 +34,7 @@ func run() error {
 
 	apiToken := os.Getenv("TILS_CLI_API_TOKEN")
 	if apiToken == "" {
-		handleError(errors.New("TILS_CLI_API_TOKEN environment variable is blank\n\nVisit https://tils.dev/account to get your API token"))
+		return false, errors.New("TILS_CLI_API_TOKEN environment variable is blank\n\nVisit https://tils.dev/account to get your API token")
 	}
 
 	command := ""
@@ -55,7 +55,7 @@ func run() error {
 		}
 		err := survey.AskOne(prompt, &command)
 		if err == terminal.InterruptErr {
-			os.Exit(0)
+			return false, nil
 		}
 	} else {
 		command = os.Args[1]
@@ -65,47 +65,28 @@ func run() error {
 
 	switch command {
 	case "new":
-		if err := new.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, new.Run(store)
 	case "show":
-		if err := show.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, show.Run(store)
 	case "open":
-		if err := open.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, open.Run(store)
 	case "copy":
-		if err := copy.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, copy.Run(store)
 	case "edit":
-		if err := edit.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, edit.Run(store)
 	case "archive":
-		if err := archive.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, archive.Run(store)
 	case "delete":
-		if err := delete.Run(store); err != nil {
-			handleError(err)
-		}
+		return false, delete.Run(store)
 	case "version":
 		fmt.Println(version.Version)
 	case "quit":
-		os.Exit(0)
+		// Do nothing
 	default:
-		help()
+		return true, errors.New("Unrecognized command")
 	}
 
-	return nil
-}
-
-func handleError(err error) {
-	fmt.Fprintf(os.Stderr, "%v\n", err)
-	os.Exit(1)
+	return false, nil
 }
 
 func help() {
@@ -124,12 +105,16 @@ func help() {
 	fmt.Println("    help       Print this help text")
 	fmt.Println()
 	fmt.Println("If a command is not provided, a picker will ask for one")
-
-	os.Exit(1)
 }
 
 func main() {
-	if err := run(); err != nil {
-		handleError(err)
+	if showHelp, err := run(); err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+
+		if showHelp {
+			help()
+		}
+
+		os.Exit(1)
 	}
 }
