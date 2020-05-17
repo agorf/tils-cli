@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog][] and this project adheres to
 ### Added
 
 - Add support for JSON file configuration
+- Add config command
 
 ### Changed
 

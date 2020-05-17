@@ -14,7 +14,7 @@ const (
 
 type Config struct {
 	APIToken string `json:"api_token"`
-	BaseURL  string `json:"base_url"`
+	BaseURL  string `json:"-"`
 }
 
 func Load() (*Config, error) {
@@ -26,14 +26,12 @@ func Load() (*Config, error) {
 		config.BaseURL = defaultBaseURL
 	}
 
-	usr, err := user.Current()
+	cfgPath, err := absoluteConfigPath()
 	if err != nil {
 		return nil, err
 	}
 
-	absoluteConfigPath := strings.Replace(configPath, "~", usr.HomeDir, 1)
-
-	_, err = os.Stat(absoluteConfigPath)
+	_, err = os.Stat(cfgPath)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return config, nil
@@ -41,7 +39,7 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
-	file, err := os.Open(absoluteConfigPath)
+	file, err := os.Open(cfgPath)
 	if err != nil {
 		return nil, err
 	}
@@ -56,9 +54,38 @@ func Load() (*Config, error) {
 	if config.APIToken == "" && fileConfig.APIToken != "" {
 		config.APIToken = fileConfig.APIToken
 	}
-	if config.BaseURL == defaultBaseURL && fileConfig.BaseURL != "" {
-		config.BaseURL = fileConfig.BaseURL
-	}
 
 	return config, nil
+}
+
+func Write(apiToken string) error {
+	config := &Config{
+		APIToken: apiToken,
+	}
+
+	cfgPath, err := absoluteConfigPath()
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(cfgPath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	err = json.NewEncoder(file).Encode(config)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func absoluteConfigPath() (string, error) {
+	usr, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return strings.Replace(configPath, "~", usr.HomeDir, 1), nil
 }

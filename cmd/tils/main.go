@@ -44,6 +44,7 @@ func run() (bool, error) {
 				"edit",
 				"archive",
 				"delete",
+				"config",
 				"version",
 				"quit",
 			},
@@ -73,6 +74,8 @@ func run() (bool, error) {
 		return false, archive.Run(store)
 	case "delete":
 		return false, delete.Run(store)
+	case "config":
+		return false, config.Run()
 	case "version":
 		fmt.Println(version.Version)
 	case "quit":
@@ -96,6 +99,7 @@ func help() {
 	fmt.Println("    edit       Edit til")
 	fmt.Println("    archive    Archive til")
 	fmt.Println("    delete     Delete til")
+	fmt.Println("    config     Configure")
 	fmt.Println("    version    Print the current version")
 	fmt.Println("    help       Print this help text")
 	fmt.Println()

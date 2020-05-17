@@ -47,15 +47,13 @@ First [sign up][] for an account and get your [API token][].
 [sign up]: https://tils.dev/signup
 [API token]: https://tils.dev/account
 
-Create a file under `~/.config/tils-cli.json` and enter:
+Use the `config` command to enter your API token:
 
-```json
-{
-  "api_token": "mytoken"
-}
+```plaintext
+$ tils config
+? API token: 41271f50fd9a7dcf904a727039a5ec24
+Wrote config
 ```
-
-Replace `mytoken` with your API token.
 
 Alternatively, you can set the `TILS_CLI_API_TOKEN` environment variable which
 takes precedence over the config file.
@@ -76,6 +74,7 @@ Commands:
     edit       Edit til
     archive    Archive til
     delete     Delete til
+    config     Configure
     version    Print the current version
     help       Print this help text
 
