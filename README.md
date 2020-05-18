@@ -37,7 +37,7 @@ brew install go
 Then issue:
 
 ```shell
-go get github.com/agorf/tils-cli/cmd/tils
+go get -u github.com/agorf/tils-cli/cmd/tils
 ```
 
 ## Configuration
