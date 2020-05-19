@@ -40,6 +40,12 @@ Then issue:
 go get -u github.com/agorf/tils-cli/cmd/tils
 ```
 
+**Note:** this command will place the `tils` executable under the *bin* directory of your `$GOPATH`. To be able to execute it without typing its absolute path, you can update your `PATH` variable to include Go's bin directory by adding the following line to the proper dotfile for your shell (ex. `.bashrc`):
+
+```bash
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
 ## Configuration
 
 First [sign up][] for an account and get your [API token][].
